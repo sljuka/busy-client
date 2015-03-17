@@ -1,0 +1,22 @@
+.process-bubble {
+	
+}
+
+.process-bubble__header {
+	height: 50px;
+	background-color: #ccc;
+	border-top-left-radius: 8px;
+  	border-top-right-radius: 8px;
+}
+
+.process-bubble__content {
+	height: 500px;
+	background-color: #eee;
+}
+
+.process-bubble__footer {
+	height: 50px;
+	background-color: #aaa;
+	border-bottom-left-radius: 8px;
+  	border-bottom-right-radius: 8px;
+}

@@ -1,0 +1,8 @@
+@import "./process-bubble.scss";
+@import "./globals/grid.scss";
+@import "./globals/text.scss";
+
+.row.full-width {
+  width: 100%;
+  max-width: 100%; 
+}
