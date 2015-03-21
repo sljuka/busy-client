@@ -3,7 +3,11 @@ const keyMirror = require('react/lib/keyMirror');
 module.exports = {
 
   ActionTypes: keyMirror({
-    ADD_TASK: null
+    GET_BLUEPRINTS: "GET_BLUEPRINTS",
+    GET_BLUEPRINTS_SUCCESS: "GET_BLUEPRINTS_SUCCESS",
+    ERROR: "ERROR",
+    ADD_PROCESS: "ADD_PROCESS",
+	ADD_PROCESS_SUCCESS: "ADD_PROCESS_SUCCESS"
   }),
 
   ActionSources: keyMirror({

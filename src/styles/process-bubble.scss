@@ -7,6 +7,18 @@
 	background-color: #ccc;
 	border-top-left-radius: 8px;
   	border-top-right-radius: 8px;
+
+  	.close {
+  		float: right;
+  		display: inline-block;
+  	}
+}
+
+.process-bubble__footer {
+	
+	.add {
+  		display: inline-block;
+  	}
 }
 
 .process-bubble__content {
