@@ -1,6 +1,6 @@
 const React = require('react');
-const ActionCreator = require('../actions/TodoActionCreators');
 const BlueprintActionCreators = require('../actions/BlueprintActionCreators')
+const ProcessContent = require('./ProcessContent.jsx');
 
 let Process = React.createClass({
   getDefaultProps() {
@@ -26,10 +26,12 @@ let Process = React.createClass({
         <div className="process-bubble margin-bottom-medium margin-top-medium">
           <div className="process-bubble__header">
             <a className="close margin-top-small margin-right-medium" onClick={this.closeClick}>X</a>
-            <h4 className="text-center font-bold padding-top-tiny">{this.props.process.name} {this.props.process.id}</h4>
+            <h4 className="text-center font-bold padding-top-tiny">{this.props.process.name} (v{this.props.process.latest})</h4>
           </div>
           <div className="process-bubble__content">
-            content
+            {this.props.process.processes.map(process =>
+              <ProcessContent key={process.id} process={process} />
+            )}
           </div>
           <div className="process-bubble__footer">
             <a className="add margin-top-small margin-left-medium" onClick={this.addClick}>+</a>

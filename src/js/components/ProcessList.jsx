@@ -1,7 +1,7 @@
 const React = require('react');
 const ProcessBubble = require('./ProcessBubble.jsx');
-const BlueprintStore = require('../stores/BlueprintStore')
-const BlueprintActionCreators = require('../actions/BlueprintActionCreators')
+const ProcessStore = require('../stores/ProcessStore')
+const ProcessActionCreators = require('../actions/ProcessActionCreators')
 
 let ProcessList = React.createClass({
   getInitialState() {
@@ -10,23 +10,25 @@ let ProcessList = React.createClass({
     };
   },
 
-  closeProcess(number) {
-    this.setState({ processes: this.props.processes.splice(this.props.processes.indexOf(number), 1) });
+  closeProcess(process) {
+    var pcss = this.state.processes;
+    pcss.splice(pcss.indexOf(process), 1);
+    this.setState({ processes: pcss });
   },
 
   _onChange() {
     this.setState({
-      processes: BlueprintStore.getBlueprints()
+      processes: ProcessStore.getProcesses()
     });
   },
 
   componentDidMount() {
-    BlueprintStore.addChangeListener(this._onChange);
-    BlueprintActionCreators.getBlueprints();
+    ProcessStore.addChangeListener(this._onChange);
+    ProcessActionCreators.getProcesses();
   },
 
   componentWillUnmount() {
-    BlueprintStore.removeChangeListener(this._onChange);
+    ProcessStore.removeChangeListener(this._onChange);
   },
 
   render() {
@@ -34,7 +36,7 @@ let ProcessList = React.createClass({
     return (
       <div className="row full-width">
         {processes.map(process =>
-          <ProcessBubble key={process.id} process={process} handleClose={this.closeProcess} isLast={processes[processes.length - 1] === process} />
+          <ProcessBubble key={process.latest} process={process} handleClose={this.closeProcess} isLast={processes[processes.length - 1] === process} />
         )}
       </div>
     );

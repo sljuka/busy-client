@@ -39,7 +39,7 @@ module.exports = {
       url: "http://localhost:3000/api/v1/processes?token=e894d555fe2645b9e0cca367adc3a6d0",
       method: "POST",
       data: {
-        id: process.id
+        id: process.latest
       },
       success: function(data) {
         AppDispatcher.handleViewAction({
