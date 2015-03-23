@@ -29,6 +29,28 @@ module.exports = {
       }
     });
 
+  },
+
+  closeProcess: function(name) {
+    AppDispatcher.handleViewAction({
+      type: Constants.ActionTypes.CLOSE_PROCESS,
+      name: name
+    });
+  },
+
+  goToIndex: function(name) {
+    AppDispatcher.handleViewAction({
+      type: Constants.ActionTypes.INDEX_PROCESS,
+      name: name
+    });
+  },
+
+  showProcess: function(name, id) {
+    AppDispatcher.handleViewAction({
+      type: Constants.ActionTypes.SHOW_PROCESS,
+      name: name,
+      id: id
+    });
   }
 
 };

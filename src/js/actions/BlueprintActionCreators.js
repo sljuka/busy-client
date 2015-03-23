@@ -29,8 +29,6 @@ module.exports = {
 
   addProcess: function(process) {
 
-    console.log(process)
-
     AppDispatcher.handleViewAction({
       type: Constants.ActionTypes.ADD_PROCESS,
     });

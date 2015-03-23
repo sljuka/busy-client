@@ -1,44 +1,24 @@
 const React = require('react');
-const ProcessBubble = require('./ProcessBubble.jsx');
-const ProcessStore = require('../stores/ProcessStore')
-const ProcessActionCreators = require('../actions/ProcessActionCreators')
+const BlueprintActionCreators = require('../actions/BlueprintActionCreators')
+const ProcessItem = require('./ProcessItem.jsx');
 
 let ProcessList = React.createClass({
-  getInitialState() {
+
+  getDefaultProps() {
     return {
-      processes: []
+    	process: {
+    		processes: []
+    	}
     };
   },
 
-  closeProcess(process) {
-    var pcss = this.state.processes;
-    pcss.splice(pcss.indexOf(process), 1);
-    this.setState({ processes: pcss });
-  },
-
-  _onChange() {
-    this.setState({
-      processes: ProcessStore.getProcesses()
-    });
-  },
-
-  componentDidMount() {
-    ProcessStore.addChangeListener(this._onChange);
-    ProcessActionCreators.getProcesses();
-  },
-
-  componentWillUnmount() {
-    ProcessStore.removeChangeListener(this._onChange);
-  },
-
   render() {
-    var processes = this.state.processes;
     return (
-      <div className="row full-width">
-        {processes.map(process =>
-          <ProcessBubble key={process.latest} process={process} handleClose={this.closeProcess} isLast={processes[processes.length - 1] === process} />
-        )}
-      </div>
+	  <div className="process-bubble__content">
+	    {this.props.process.processes.map(process =>
+	      <ProcessItem key={process.id} process={process} />
+	    )}
+	  </div>
     );
   }
 });

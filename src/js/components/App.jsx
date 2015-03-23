@@ -1,7 +1,7 @@
 const React = require('react');
 const TodoStore = require('../stores/TodoStore');
 const TopBar = require('./TopBar.jsx')
-const ProcessList = require('./ProcessList.jsx');
+const ProcessList = require('./ProcessPanel.jsx');
 const Error = require("./ErrorNotification.jsx");
 
 let App = React.createClass({
