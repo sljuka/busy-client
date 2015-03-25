@@ -23,7 +23,7 @@ let ProcessBubble = React.createClass({
 
   render() {
     var cn = "small-12 large-3 columns" + (this.props.isLast ? " end" : "");
-    if(this.props.process.process_id === null) {
+    if(this.props.process.showedProcess === null) {
       return (
         <div className={cn}>  
           <div className="process-bubble margin-bottom-medium margin-top-medium">

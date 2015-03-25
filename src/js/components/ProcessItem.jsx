@@ -18,7 +18,7 @@ let ProcessItem = React.createClass({
   		<div className="process-bubble__content__process">  
   			<div className="padding-left-small padding-top-medium">
   				(v{this.props.process.process_blueprint_id}) {this.props.process.name}
-          <a className="add margin-top-small margin-left-medium" onClick={this.showClick}> "show" </a>
+          <a className="add margin-top-small margin-left-medium" onClick={this.showClick}> Show </a>
   			</div>
   		</div>
     );

@@ -10,11 +10,11 @@ const _ = require('lodash');
 let _processBubbles = [
   {
     name: "make_breakfast",
-    process_id: 1
+    showedProcess: null
   },
   {
     name: "sample_process",
-    process_id: null
+    showedProcess: null
   }
 ];
 
@@ -38,13 +38,13 @@ function closeProcess(name) {
 
 function goToIndex(name) {
   var idx = _.findIndex(_processBubbles, { name: name });
-  _processBubbles[idx].process_id = null;
+  _processBubbles[idx].showedProcess = null;
   ProcessStore.emitChange();
 }
 
 function showProcess(name, id) {
   var idx = _.findIndex(_processBubbles, { name: name });
-  _processBubbles[idx].process_id = id;
+  _processBubbles[idx].showedProcess = _.find(_processBubbles[idx].processes, { id: id });
   ProcessStore.emitChange();
 }
 
