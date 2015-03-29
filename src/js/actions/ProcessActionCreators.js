@@ -51,6 +51,82 @@ module.exports = {
       name: name,
       id: id
     });
+  },
+
+  runProcess: function(id) {
+    AppDispatcher.handleViewAction({
+      type: Constants.ActionTypes.RUN_PROCESS,
+    });
+
+    var self = this;
+
+    function refreshProcesses() {
+      self.getProcesses();
+    }
+
+    $.ajax({
+      url: "http://localhost:3000/api/v1/processes/" + id + "/run",
+      method: "POST",
+      data: {
+        token: "e894d555fe2645b9e0cca367adc3a6d0"
+      },
+
+      success: function(data) {
+        AppDispatcher.handleViewAction({
+          type: Constants.ActionTypes.RUN_PROCESS_SUCCESS,
+          processes: data
+        });
+        refreshProcesses();
+      },
+
+      error: function(data) {
+        var message = "Unexpected error occured"
+        if(data.responseText !== undefined)
+          message = JSON.parse(data.responseText).message
+        AppDispatcher.handleViewAction({
+          type: Constants.ActionTypes.ERROR,
+          message: message
+        });
+      }
+    });
+  },
+
+  addProcess: function(process) {
+
+    AppDispatcher.handleViewAction({
+      type: Constants.ActionTypes.ADD_PROCESS,
+    });
+
+    var self = this;
+
+    function refreshProcesses() {
+      self.getProcesses();
+    }
+
+    $.ajax({
+      url: "http://localhost:3000/api/v1/processes?token=e894d555fe2645b9e0cca367adc3a6d0",
+      method: "POST",
+      data: {
+        id: process.latest
+      },
+      success: function(data) {
+        AppDispatcher.handleViewAction({
+          type: Constants.ActionTypes.ADD_PROCESS_SUCCESS,
+          process: data
+        });
+        refreshProcesses();
+      },
+      error: function(data) {
+        var message = "Unexpected error occured"
+        if(data.responseText !== undefined)
+          message = JSON.parse(data.responseText).message
+        AppDispatcher.handleViewAction({
+          type: Constants.ActionTypes.ERROR,
+          message: message
+        });
+      }
+    });
+
   }
 
 };

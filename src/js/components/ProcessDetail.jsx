@@ -24,12 +24,14 @@ let ProcessDetail = React.createClass({
       runned_at = new Date(runned_at).toLocaleString()
 
     return (
-    <div className="process-bubble__content">
+    <div className="process-bubble__content padding-left-small padding-top-medium">
       <div>
+        
         <a className="add margin-top-small margin-left-medium" onClick={this.indexClick}>
           Back
           <span>{this.props.process.showedProcess.id}</span>
         </a>
+        
       </div>
 
       <div className="row">
