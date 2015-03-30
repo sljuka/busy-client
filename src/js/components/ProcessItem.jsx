@@ -13,7 +13,8 @@ let ProcessItem = React.createClass({
     ProcessActionCreators.showProcess(this.props.process.name, this.props.process.id)
   },
 
-  runClick() {
+  runClick(e) {
+    e.stopPropagation();
     ProcessActionCreators.runProcess(this.props.process.id)
   },
 
@@ -21,17 +22,17 @@ let ProcessItem = React.createClass({
 
     var runButton;
     if(this.props.process.runned_at === null) {
-      runButton = <a className="add margin-top-small margin-left-medium" onClick={this.runClick}> Run </a>;
+      runButton = <a className="icon-button margin-top-small margin-left-medium" onClick={this.runClick}><i className="step fi-play"></i></a>;
     } else {
       runButton = ""
     }
 
     return (
-  		<div className="process-bubble__content__process">  
+  		<div className="process-bubble__content__process" onClick={this.showClick}>  
   			<div className="padding-left-small padding-top-medium">
-  				(v{this.props.process.process_blueprint_id}) {this.props.process.name}
-          <a className="add margin-top-small margin-left-medium" onClick={this.showClick}> Show </a>
+  				{this.props.process.name}
           {runButton}
+          <span className="process-bubble__content__process__version right">0.0.{this.props.process.process_blueprint_id}</span>
   			</div>
   		</div>
     );

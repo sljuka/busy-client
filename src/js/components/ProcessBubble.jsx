@@ -29,14 +29,14 @@ let ProcessBubble = React.createClass({
         <div className={cn}>  
           <div className="process-bubble margin-bottom-medium margin-top-medium">
             <div className="process-bubble__header">
-              <a className="close margin-top-small margin-right-medium" onClick={this.closeClick}>X</a>
-              <h4 className="text-center font-bold padding-top-tiny">{this.props.process.name} (v{this.props.process.latest})</h4>
+              <a className="process-bubble__header__close icon-button close margin-top-small margin-right-medium" onClick={this.closeClick}><i className="step fi-x"></i></a>
+              <h4 className="text-center font-bold padding-top-tiny">{this.props.process.name} <span className="process-bubble__header__version">0.0.{this.props.process.latest}</span></h4>
             </div>
 
             <ProcessList process={this.props.process} isLast={this.props.isLast} />
 
             <div className="process-bubble__footer">
-              <a className="add margin-top-small margin-left-medium" onClick={this.addClick}>+</a>
+              <a className="icon-button--smaller add margin-top-small margin-left-medium" onClick={this.addClick}><i className="step fi-plus"></i></a>
             </div>
           </div>
         </div>

@@ -37,4 +37,26 @@
 .process-bubble__content__process {
 	height: 65px;
 	border-bottom: 1px solid #ddd;
+	cursor: pointer;
+}
+
+.process-bubble__content__process:hover {
+	background-color: #ddd;
+}
+
+.process-bubble__content__process__version {
+	color: #bbb;
+}
+
+.process-bubble__header__close {
+	
+}
+
+.process-bubble__header__version {
+	color: #999;
+	font-size: 1.2rem;
+}
+
+.process-bubble__content__process__action {
+	display: inline-block;
 }
