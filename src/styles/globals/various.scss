@@ -1,30 +1,59 @@
+@import "./colors.scss";
+
 .right {
 	float: right;
 }
 
 .icon-button {
 	font-size: 1.2rem;
-	color: #444;
+	color: #fff;
 
 	&:hover {
-		color: #555;
+		color: $grey;
 	}
 }
 
 .icon-button--larger {
 	font-size: 1.5rem;
-	color: #444;
+	color: #fff;
 
 	&:hover {
-		color: #555;
+		color: $grey;
 	}	
 }
 
 .icon-button--smaller {
 	font-size: 1rem;
-	color: #444;
+	color: #fff;
 
 	&:hover {
-		color: #555;
+		color: $grey;
+	}	
+}
+
+.icon-button--dgrey {
+	font-size: 1.2rem;
+	color: $black;
+
+	&:hover {
+		color: $grey;
+	}
+}
+
+.icon-button--larger--dgrey {
+	font-size: 1.5rem;
+	color: $black;
+
+	&:hover {
+		color: $grey;
+	}	
+}
+
+.icon-button--smaller--dgrey {
+	font-size: 1rem;
+	color: $black;
+
+	&:hover {
+		color: $dgrey;
 	}	
 }

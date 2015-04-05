@@ -1,4 +1,6 @@
+@import "./globals/colors.scss";
 @import "./process-bubble.scss";
+@import "./top-bar.scss";
 @import "./globals/grid.scss";
 @import "./globals/text.scss";
 @import "./globals/various.scss";
@@ -7,3 +9,4 @@
   width: 100%;
   max-width: 100%; 
 }
+

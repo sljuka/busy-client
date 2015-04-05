@@ -1,12 +1,20 @@
+@import "./globals/colors.scss";
+
 .process-bubble {
 	
 }
 
 .process-bubble__header {
+	border: 1px solid $black;
 	height: 50px;
-	background-color: #ccc;
+	background-color: $black;
 	border-top-left-radius: 8px;
   	border-top-right-radius: 8px;
+
+  	h4{
+  		color: $white;
+  	}
+  	
 
   	.close {
   		float: right;
@@ -14,38 +22,71 @@
   	}
 }
 
+.process-bubble__content {
+	height: 500px;
+	background-color: $white;
+	overflow-y: scroll;
+	border-left: 1px solid $black;
+}
+
+
+
 .process-bubble__footer {
-	
-	.add {
+	border: 1px solid $black;
+	height: 50px;
+	background-color: $black;
+	border-bottom-left-radius: 8px;
+  	border-bottom-right-radius: 8px;
+  	color: $white;
+
+  	.add {
   		display: inline-block;
   	}
 }
 
-.process-bubble__content {
-	height: 500px;
-	background-color: #eee;
-	overflow-y: scroll;
-}
-
-.process-bubble__footer {
-	height: 50px;
-	background-color: #aaa;
-	border-bottom-left-radius: 8px;
-  	border-bottom-right-radius: 8px;
-}
-
 .process-bubble__content__process {
-	height: 65px;
-	border-bottom: 1px solid #ddd;
+	min-height: 65px;
+	border-bottom: 1px solid $black;
 	cursor: pointer;
 }
 
+.process-bubble__content__process.runned {
+	background-color: $lightblue;
+}
+
+.process-bubble__content__process__pid {
+	color: $dgrey;
+	font-size: 0.9rem;
+}
+
+.process-bubble__content__process__actions a {
+	font-size: 2em;
+}
+
 .process-bubble__content__process:hover {
-	background-color: #ddd;
+	background-color: $greenblue;
+	color: $white;
+
+	.process-bubble__content__process__version {
+		color: $white;
+	}
+
+	.process-bubble__content__process__pid {
+		color: $white;
+	}
+
+	.process-bubble__content__process__actions a {
+		color: $white;
+	}
+
+	.process-bubble__content__process__actions a:hover {
+		color: $grey;
+	}
 }
 
 .process-bubble__content__process__version {
-	color: #bbb;
+	color: $dgrey;
+	font-size: 0.9rem;
 }
 
 .process-bubble__header__close {
@@ -53,7 +94,7 @@
 }
 
 .process-bubble__header__version {
-	color: #999;
+	color: $dgrey;
 	font-size: 1.2rem;
 }
 

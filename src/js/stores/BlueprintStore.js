@@ -2,13 +2,16 @@ const AppDispatcher = require('../dispatchers/AppDispatcher');
 const Constants = require('../constants/AppConstants');
 const BaseStore = require('./BaseStore');
 const assign = require('object-assign');
+const _ = require('lodash');
 
 // data storage
-let _data = [];
+let _blueprints = [];
+
+let _openedBlueprints = [];
 
 // add private functions to modify data
 function setBlueprints(data) {
-  _data = data;
+  _blueprints = data;
   BlueprintStore.emitChange();
 }
 
@@ -17,7 +20,7 @@ let BlueprintStore = assign({}, BaseStore, {
 
   // public methods used by Controller-View to operate on data
   getBlueprints() {
-    return _data
+    return _blueprints
   },
 
   // register store with dispatcher, allowing actions to flow through

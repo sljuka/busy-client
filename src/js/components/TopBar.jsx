@@ -1,36 +1,60 @@
 const React = require('react');
+const BlueprintStore = require('../stores/BlueprintStore')
+const BlueprintActionCreators = require('../actions/BlueprintActionCreators')
+const StringUtils = require('../utils/StringUtils');
 
 let TopBar = React.createClass({
-  getDefaultProps() {
+  getInitialState() {
     return {
-      
+      blueprints: [
+        {
+          name: "no processes",
+          id: -1
+        }
+      ]
     };
   },
 
+  _onChange() {
+    this.setState({
+      blueprints: BlueprintStore.getBlueprints()
+    });
+  },
+
+  componentDidMount() {
+    BlueprintStore.addChangeListener(this._onChange);
+    BlueprintActionCreators.getBlueprints();
+  },
+
+  selectChange(e) {
+    var name = e.target.value
+    BlueprintActionCreators.openBlueprint({
+      name: name
+    });
+  },
+
   render() {
+
+    var blueprints = this.state.blueprints;
+
     return (
       <nav className="top-bar" data-topbar role="navigation">
         <ul className="title-area">
           <li className="name">
-            <h1><a href="#">My Site</a></h1>
+            <h1><a href="#">BF</a></h1>
           </li>   
           <li className="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
         </ul>
 
         <section className="top-bar-section"> 
-          <ul className="right">
-            <li className="active"><a href="#">Right Button Active</a></li>
-            <li className="has-dropdown">
-              <a href="#">Right Button Dropdown</a>
-              <ul className="dropdown">
-                <li><a href="#">First link in dropdown</a></li>
-                <li className="active"><a href="#">Active link in dropdown</a></li>
-              </ul>
-            </li>
-          </ul>
-
           <ul className="left">
-            <li><a href="#">Left Nav Button</a></li>
+            <li>
+              <select className="medium top-bar__blueprints-dropdown" onChange={this.selectChange}>
+                {blueprints.map(bp =>
+                  <option value={bp.name} key={bp.id}>{StringUtils.humanize(bp.name)}</option>
+                )}
+              </select>
+            </li>
           </ul>
         </section>
       </nav>

@@ -1,22 +1,24 @@
 const React = require('react');
-const BlueprintActionCreators = require('../actions/BlueprintActionCreators')
+const ProcessActionCreators = require('../actions/ProcessActionCreators')
 const ProcessItem = require('./ProcessItem.jsx');
 
 let ProcessList = React.createClass({
 
   getDefaultProps() {
     return {
-    	process: {
-    		processes: []
-    	}
+  		processes: []
     };
+  },
+
+  showProcess(blueprint_name, process_id) {
+    ProcessActionCreators.showProcess(blueprint_name, process_id);
   },
 
   render() {
     return (
 	  <div className="process-bubble__content">
-	    {this.props.process.processes.map(process =>
-	      <ProcessItem key={process.id} process={process} />
+	    {this.props.processes.map(process =>
+	      <ProcessItem key={process.id} process={process} handleShow={this.showProcess} />
 	    )}
 	  </div>
     );

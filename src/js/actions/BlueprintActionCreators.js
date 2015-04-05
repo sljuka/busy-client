@@ -9,8 +9,12 @@ module.exports = {
     });
 
     $.ajax({
-      url: "http://localhost:3000/api/v1/blueprints?token=e894d555fe2645b9e0cca367adc3a6d0",
+      url: "http://localhost:3000/api/v1/blueprints",
       method: "GET",
+      data: {
+        token: "e894d555fe2645b9e0cca367adc3a6d0",
+        latest: true
+      },
       success: function(data) {
         AppDispatcher.handleViewAction({
           type: Constants.ActionTypes.GET_BLUEPRINTS_SUCCESS,
@@ -25,6 +29,6 @@ module.exports = {
         });
       }
     });
-  },
+  }
 
 };

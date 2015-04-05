@@ -31,9 +31,16 @@ module.exports = {
 
   },
 
-  closeProcess: function(name) {
+  openBlueprint: function(data) {
     AppDispatcher.handleViewAction({
-      type: Constants.ActionTypes.CLOSE_PROCESS,
+      type: Constants.ActionTypes.OPEN_BLUEPRINT,
+      blueprint_name: data.name
+    })
+  },
+
+  closeBlueprint: function(name) {
+    AppDispatcher.handleViewAction({
+      type: Constants.ActionTypes.CLOSE_BLUEPRINT,
       name: name
     });
   },
@@ -59,7 +66,6 @@ module.exports = {
     });
 
     var self = this;
-
     function refreshProcesses() {
       self.getProcesses();
     }
@@ -91,14 +97,13 @@ module.exports = {
     });
   },
 
-  addProcess: function(process) {
+  addProcess: function(blueprint) {
 
     AppDispatcher.handleViewAction({
       type: Constants.ActionTypes.ADD_PROCESS,
     });
 
     var self = this;
-
     function refreshProcesses() {
       self.getProcesses();
     }
@@ -107,7 +112,7 @@ module.exports = {
       url: "http://localhost:3000/api/v1/processes?token=e894d555fe2645b9e0cca367adc3a6d0",
       method: "POST",
       data: {
-        id: process.latest
+        id: blueprint.id
       },
       success: function(data) {
         AppDispatcher.handleViewAction({

@@ -1,22 +1,23 @@
 const React = require('react');
 const ProcessBubble = require('./ProcessBubble.jsx');
 const ProcessStore = require('../stores/ProcessStore')
+const BlueprintStore = require('../stores/BlueprintStore')
 const ProcessActionCreators = require('../actions/ProcessActionCreators')
 
 let ProcessPanel = React.createClass({
   getInitialState() {
     return {
-      processes: []
+      blueprints: []
     };
   },
 
-  closeProcess(process) {
-    ProcessActionCreators.closeProcess(process.name);
+  closeBlueprint(name) {
+    ProcessActionCreators.closeBlueprint(name);
   },
 
   _onChange() {
     this.setState({
-      processes: ProcessStore.getProcesses()
+      blueprints: ProcessStore.getProcesses()
     });
   },
 
@@ -27,14 +28,15 @@ let ProcessPanel = React.createClass({
 
   componentWillUnmount() {
     ProcessStore.removeChangeListener(this._onChange);
+    BlueprintStore.removeChangeListener(this._blueprintsChange);
   },
 
   render() {
-    var processes = this.state.processes;
+    var blueprints = this.state.blueprints;
     return (
       <div className="row full-width">
-        {processes.map(process =>
-          <ProcessBubble key={process.latest} process={process} handleClose={this.closeProcess} isLast={processes[processes.length - 1] === process} />
+        {blueprints.map(bp =>
+          <ProcessBubble key={bp.id} blueprint={bp} handleClose={this.closeBlueprint} isLast={blueprints[blueprints.length - 1] === bp} />
         )}
       </div>
     );
@@ -42,3 +44,5 @@ let ProcessPanel = React.createClass({
 });
 
 module.exports = ProcessPanel;
+
+
