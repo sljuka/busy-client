@@ -1,4 +1,5 @@
 const ProcessActionCreators = require('../actions/ProcessActionCreators')
+const ProcessActions = require('./ProcessActions.jsx')
 const StringUtils = require('../utils/StringUtils')
 
 const React = require('react');
@@ -16,25 +17,18 @@ let ProcessItem = React.createClass({
     this.props.handleShow(pcs.name, pcs.id);
   },
 
-  runClick(e) {
-    e.stopPropagation();
-    ProcessActionCreators.runProcess(this.props.process.id)
-  },
-
   render() {
 
+    var pcs = this.props.process;
 
     var human_name = StringUtils.humanize(this.props.process.name);
     var clss_name = "process-bubble__content__process"
-
-    var runned = this.props.process.runned_at !== null
-    var runButton;
-    if(runned) {
-      runButton = ""
-      clss_name = clss_name + " runned";
-    } else {
-      runButton = <a title="Run process" className="icon-button--dgrey margin-top-small margin-left-medium" onClick={this.runClick}><i className="step fi-play"></i></a>;
-    }
+    if(pcs.status == "task")
+      clss_name += "--task"
+    else if(pcs.status == "input")
+      clss_name += "--input"
+    else if(pcs.status == "finished")
+      clss_name += "--finished"
 
     return (
   		<div className={clss_name} onClick={this.showClick}>  
@@ -49,7 +43,7 @@ let ProcessItem = React.createClass({
           </div>
 
           <div className="small-2 columns padding-top-small process-bubble__content__process__actions right">
-            {runButton}
+            <ProcessActions process={this.props.process} />
           </div>
           
   			</div>

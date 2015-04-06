@@ -1,6 +1,7 @@
 const React = require('react');
 const BlueprintStore = require('../stores/BlueprintStore')
 const BlueprintActionCreators = require('../actions/BlueprintActionCreators')
+const ProcessActionCreators = require('../actions/ProcessActionCreators')
 const StringUtils = require('../utils/StringUtils');
 
 let TopBar = React.createClass({
@@ -9,7 +10,8 @@ let TopBar = React.createClass({
       blueprints: [
         {
           name: "no processes",
-          id: -1
+          id: -1,
+          processes: []
         }
       ]
     };
@@ -28,7 +30,11 @@ let TopBar = React.createClass({
 
   selectChange(e) {
     var name = e.target.value
-    BlueprintActionCreators.openBlueprint({
+    console.log(name)
+    if(name === "none")
+      return;
+
+    ProcessActionCreators.openBlueprint({
       name: name
     });
   },
@@ -50,6 +56,7 @@ let TopBar = React.createClass({
           <ul className="left">
             <li>
               <select className="medium top-bar__blueprints-dropdown" onChange={this.selectChange}>
+                <option value={"none"} key={-1}>Choose process schema</option>
                 {blueprints.map(bp =>
                   <option value={bp.name} key={bp.id}>{StringUtils.humanize(bp.name)}</option>
                 )}

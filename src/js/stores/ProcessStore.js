@@ -3,46 +3,19 @@ const Constants = require('../constants/AppConstants');
 const BaseStore = require('./BaseStore');
 const assign = require('object-assign');
 const jquery = require('jquery');
-const cookie = require('jquery.cookie');
 const _ = require('lodash');
+const CookieStore = require("../utils/CookieStore")
 
 // data storage
 
-let _processes = [
-  // {
-  //   name: "make_breakfast",
-  //   showedProcess: null
-  // },
-  // {
-  //   name: "sample_process",
-  //   showedProcess: null
-  // },
-  // {
-  //   name: "sample_process_2",
-  //   showedProcess: null
-  // }
-];
+let _processes = [];
 
-// add private functions to modify data
+// private functions
 function setProcesses(data) {
-  //_processBubbles = newData(_processBubbles, data);
 
-  // extend new data with showedProcess attribute
-
-  var extData = _.map(data, function(element) { 
-    return _.extend({}, element, {showed: null});
-  });
-
-  _processes = extData
-
-  // var cookie_data = {
-  //   names: extractNames(_processBubbles)
-  // }
-  
-  // jquery.cookie.json = true;
-  // jquery.cookie('bizflow_processes', cookie_data);
-  
+  _processes = merge_data(_processes, data);
   ProcessStore.emitChange();
+
 }
 
 function goToIndex(name) {
@@ -57,21 +30,30 @@ function showProcess(name, id) {
   ProcessStore.emitChange();
 }
 
+function showProcessData(process) {
+  var blueprint_index = _.findIndex(_processes, { name: process.name });
+  _processes[blueprint_index].showed = process;
+  ProcessStore.emitChange(); 
+}
+
 function openBlueprint(name) {
   _processes = _.reject(_processes, { name: name });
-  
+
   _processes.unshift(
     {
       name: name,
-      showedProcess: null
+      showed: null,
+      processes: [],
+      id: 0
     }
   );
-  
-  ProcessStore.emitChange();
+
+  CookieStore.setBlueprintNames(_processes);
 }
 
 function closeBlueprint(name) {
   _processes = _.reject(_processes, { name: name });
+  CookieStore.setBlueprintNames(_processes);
   ProcessStore.emitChange();
 }
 
@@ -121,8 +103,14 @@ let ProcessStore = assign({}, BaseStore, {
       case Constants.ActionTypes.SHOW_PROCESS:
         showProcess(action.name, action.id)
         break;
+      case Constants.ActionTypes.SHOW_PROCESS_SUCCESS:
+        showProcessData(action.process)
+        break;
       case Constants.ActionTypes.CLOSE_BLUEPRINT:
         closeBlueprint(action.name)
+        break;
+      case Constants.ActionTypes.OPEN_BLUEPRINT:
+        openBlueprint(action.blueprint_name)
         break;
       // add more cases for other actionTypes...
     }
@@ -130,23 +118,33 @@ let ProcessStore = assign({}, BaseStore, {
 
 });
 
-function extractNames(data) {
-  var res = []
-  for(var i = 0; i < data.length; i++) {
-    res.push(data[i].name)
-  }
-  return res;
-}
 
-function result_merge(current, fresh) {
+
+function merge_data(current, fresh) {
+
+  var names = [];
+  names = CookieStore.getBlueprintNames();
+  current = _.map(names, function(name) {
+    var existing_item = _.find(current, {'name': name })
+    
+    if(existing_item === undefined) {
+      existing_item = {
+        name: name,
+        id: 0,
+        processes: []
+      }
+    }
+
+    return existing_item;
+  });
+
   var res = [];
   res = _.map(current, function(item) {
 
     var freshItem = _.find(fresh, {name: item.name})
-    
-    if(freshItem !== undefined) {
-      _.merge(item, freshItem)
-    }
+    item.processes = freshItem.processes
+    item.id = freshItem.id
+    item.description = freshItem.description
     
     return item;
   });

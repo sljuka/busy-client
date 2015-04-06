@@ -1,5 +1,7 @@
 var AppDispatcher = require('../dispatchers/AppDispatcher');
 var Constants = require('../constants/AppConstants');
+const jquery = require('jquery');
+const CookieStore = require("../utils/CookieStore")
 
 module.exports = {
 
@@ -9,9 +11,14 @@ module.exports = {
       type: Constants.ActionTypes.GET_PROCESSES,
     });
 
+    var process_names = CookieStore.getBlueprintNames();
+
     $.ajax({
       url: "http://localhost:3000/api/v1/processes?token=e894d555fe2645b9e0cca367adc3a6d0",
       method: "GET",
+      data: {
+        names: JSON.stringify(process_names)
+      },
       success: function(data) {
         AppDispatcher.handleViewAction({
           type: Constants.ActionTypes.GET_PROCESSES_SUCCESS,
@@ -35,7 +42,9 @@ module.exports = {
     AppDispatcher.handleViewAction({
       type: Constants.ActionTypes.OPEN_BLUEPRINT,
       blueprint_name: data.name
-    })
+    });
+
+    this.getProcesses();
   },
 
   closeBlueprint: function(name) {
@@ -57,6 +66,31 @@ module.exports = {
       type: Constants.ActionTypes.SHOW_PROCESS,
       name: name,
       id: id
+    });
+
+    $.ajax({
+      url: "http://localhost:3000/api/v1/processes/" + id,
+      method: "GET",
+      data: {
+        token: "e894d555fe2645b9e0cca367adc3a6d0"
+      },
+
+      success: function(data) {
+        AppDispatcher.handleViewAction({
+          type: Constants.ActionTypes.SHOW_PROCESS_SUCCESS,
+          process: data
+        });
+      },
+
+      error: function(data) {
+        var message = "Unexpected error occured"
+        if(data.responseText !== undefined)
+          message = JSON.parse(data.responseText).message
+        AppDispatcher.handleViewAction({
+          type: Constants.ActionTypes.ERROR,
+          message: message
+        });
+      }
     });
   },
 

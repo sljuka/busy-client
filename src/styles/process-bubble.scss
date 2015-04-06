@@ -50,8 +50,19 @@
 	cursor: pointer;
 }
 
-.process-bubble__content__process.runned {
+.process-bubble__content__process--task {
+	@extend .process-bubble__content__process;
 	background-color: $lightblue;
+}
+
+.process-bubble__content__process--input {
+	@extend .process-bubble__content__process;
+	background-color: $redish;
+}
+
+.process-bubble__content__process--finished {
+	@extend .process-bubble__content__process;
+	background-color: #666;
 }
 
 .process-bubble__content__process__pid {
@@ -101,3 +112,23 @@
 .process-bubble__content__process__action {
 	display: inline-block;
 }
+
+.process-bubble__content__action-list {
+	margin: 0 10px;
+	list-style: none;
+}
+
+.process-bubble__content__action-list__item {
+	background-color: #ccc;
+	width: 100%;
+	height: 100px;
+	text-align: center;
+	padding-top: 5px;
+	margin-bottom: 20px;
+}
+
+.process-bubble__content__action-list__item--head {
+	@extend .process-bubble__content__action-list__item;
+	background-color: $redish;
+}
+

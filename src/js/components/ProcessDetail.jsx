@@ -1,6 +1,6 @@
 const React = require('react');
 const ProcessActionCreators = require('../actions/ProcessActionCreators')
-const ProcessContent = require('./ProcessItem.jsx');
+const ActionList = require('./ActionList.jsx');
 const StringUtils = require('../utils/StringUtils');
 
 let ProcessDetail = React.createClass({
@@ -34,7 +34,7 @@ let ProcessDetail = React.createClass({
 
       <div className="row margin-none">
 
-        <div className="padding-none small-7 columns end">
+        <div className="padding-none small-9 columns end">
           <table>
             <tr>
               <th>name</th>
@@ -53,6 +53,10 @@ let ProcessDetail = React.createClass({
               <td>{runned_at}</td>
             </tr>
           </table>
+        </div>
+
+        <div className="padding-none small-3 columns end">
+          <ActionList process={this.props.process} />
         </div>
 
       </div>

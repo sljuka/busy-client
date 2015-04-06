@@ -10,7 +10,6 @@ let ErrorNotification = React.createClass({
   },
 
   _onChange() {
-    console.log("dad");
     this.setState({
       error: ErrorStore.getError()
     });
