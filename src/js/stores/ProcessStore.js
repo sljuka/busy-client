@@ -4,7 +4,8 @@ const BaseStore = require('./BaseStore');
 const assign = require('object-assign');
 const jquery = require('jquery');
 const _ = require('lodash');
-const CookieStore = require("../utils/CookieStore")
+const CookieStore = require("../utils/CookieStore");
+const UserStore = require("./UserStore");
 
 // data storage
 
@@ -64,6 +65,11 @@ let ProcessStore = assign({}, BaseStore, {
   getProcesses() {
 
     var compare = function(a,b) {
+      if (a.finished_at === null && b.finished_at !== null)
+        return -1;
+      if (a.finished_at !== null && b.finished_at === null)
+        return 1;
+
       if (a.runned_at === null && b.runned_at !== null)
         return 1;
       if (a.runned_at !== null && b.runned_at === null)
@@ -112,7 +118,9 @@ let ProcessStore = assign({}, BaseStore, {
       case Constants.ActionTypes.OPEN_BLUEPRINT:
         openBlueprint(action.blueprint_name)
         break;
-      // add more cases for other actionTypes...
+      case Constants.ActionTypes.INITIAL_DATA:
+        setProcesses(action.processes);
+        break;
     }
   })
 

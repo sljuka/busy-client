@@ -29,8 +29,6 @@
 	border-left: 1px solid $black;
 }
 
-
-
 .process-bubble__footer {
 	border: 1px solid $black;
 	height: 50px;
@@ -62,7 +60,7 @@
 
 .process-bubble__content__process--finished {
 	@extend .process-bubble__content__process;
-	background-color: #666;
+	background-color: $greenish;
 }
 
 .process-bubble__content__process__pid {
@@ -116,6 +114,8 @@
 .process-bubble__content__action-list {
 	margin: 0 10px;
 	list-style: none;
+
+	
 }
 
 .process-bubble__content__action-list__item {
@@ -132,3 +132,28 @@
 	background-color: $redish;
 }
 
+.process-bubble__content__task-list {
+	border: 1px solid #ddd;
+	list-style: none;
+	margin: 0px;
+
+	&:last-child{
+	    border-bottom: 0;
+	}
+}
+
+.process-bubble__content__task-list__item {
+	margin: 0px !important;
+	padding: 10px;
+	border-bottom: 1px solid #ddd
+}
+
+.process-bubble__content__task-list__task-item__label {
+	padding: 9px 0 10px 0;
+}
+
+.process-bubble__content__task-list__task-item__assignee-label {
+	padding: 9px 0 10px 0;
+	color: $dgrey;
+	text-align: center;
+}

@@ -23,12 +23,10 @@ let ProcessPanel = React.createClass({
 
   componentDidMount() {
     ProcessStore.addChangeListener(this._onChange);
-    ProcessActionCreators.getProcesses();
   },
 
   componentWillUnmount() {
     ProcessStore.removeChangeListener(this._onChange);
-    BlueprintStore.removeChangeListener(this._blueprintsChange);
   },
 
   render() {

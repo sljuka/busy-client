@@ -166,6 +166,78 @@ module.exports = {
       }
     });
 
+  },
+
+  assignTask: function(process, task_id) {
+    AppDispatcher.handleViewAction({
+      type: Constants.ActionTypes.ASSIGN_TASK,
+    });
+
+    var self = this;
+    function refreshProcess() {
+      self.showProcess(process.name, process.id);
+    }
+
+    $.ajax({
+      url: "http://localhost:3000/api/v1/tasks/" + task_id + "/assign",
+      method: "POST",
+      data: {
+        token: "e894d555fe2645b9e0cca367adc3a6d0"
+      },
+      success: function(data) {
+        AppDispatcher.handleViewAction({
+          type: Constants.ActionTypes.ASSIGN_TASK_SUCCESS,
+          process: data
+        });
+        refreshProcess();
+      },
+      error: function(data) {
+        var message = "Unexpected error occured"
+        if(data.responseText !== undefined)
+          message = JSON.parse(data.responseText).message
+        AppDispatcher.handleViewAction({
+          type: Constants.ActionTypes.ERROR,
+          message: message
+        });
+      }
+    });
+  },
+
+  finishTask: function(process, task_id) {
+    AppDispatcher.handleViewAction({
+      type: Constants.ActionTypes.FINISH_TASK,
+    });
+
+    var self = this;
+    function refreshProcess() {
+      self.showProcess(process.name, process.id);
+    }
+
+    $.ajax({
+      url: "http://localhost:3000/api/v1/tasks/" + task_id + "/finish",
+      method: "POST",
+      data: {
+        token: "e894d555fe2645b9e0cca367adc3a6d0"
+      },
+      success: function(data) {
+        AppDispatcher.handleViewAction({
+          type: Constants.ActionTypes.FINISH_TASK_SUCCESS,
+          process: data
+        });
+        refreshProcess();
+      },
+      error: function(data) {
+        var message = "Unexpected error occured"
+        if(data.responseText !== undefined)
+          message = JSON.parse(data.responseText).message
+        AppDispatcher.handleViewAction({
+          type: Constants.ActionTypes.ERROR,
+          message: message
+        });
+      }
+    });
   }
+
+
 
 };

@@ -31,6 +31,9 @@ let BlueprintStore = assign({}, BaseStore, {
       case Constants.ActionTypes.GET_BLUEPRINTS_SUCCESS:
         setBlueprints(action.blueprints);
         break;
+      case Constants.ActionTypes.INITIAL_DATA:
+        setBlueprints(action.blueprints);
+        break;
       // add more cases for other actionTypes...
     }
   })

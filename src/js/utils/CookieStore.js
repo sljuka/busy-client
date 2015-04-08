@@ -28,7 +28,20 @@ module.exports = {
     }
     
     jquery.cookie.json = true;
-    jquery.cookie('_processes', cookie_data);
+    jquery.cookie("_processes", cookie_data);
+  },
+
+  setUserKey: function(data) {
+    jquery.cookie("_bf_user", data);
+  },
+
+  getUserKey  : function() {
+    var res = jquery.cookie("_bf_user");
+    return res;
+  },
+
+  removeUserKey: function() {
+    jquery.removeCookie('_bf_user');
   }
 
 }

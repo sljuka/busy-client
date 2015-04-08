@@ -2,6 +2,8 @@ const React = require('react');
 const ProcessActionCreators = require('../actions/ProcessActionCreators')
 const ActionList = require('./ActionList.jsx');
 const StringUtils = require('../utils/StringUtils');
+const TaskList = require("./TaskList.jsx");
+const ProcessTable = require("./ProcessTable.jsx");
 
 let ProcessDetail = React.createClass({
 
@@ -12,15 +14,24 @@ let ProcessDetail = React.createClass({
   },
 
   indexClick() {
-    ProcessActionCreators.goToIndex(this.props.process.name)
+    ProcessActionCreators.goToIndex(this.props.process.name);
+  },
+
+  assignClick(id) {
+    ProcessActionCreators.assignTask(this.props.process, id);
+  },
+
+  finishClick(id) {
+    ProcessActionCreators.finishTask(this.props.process, id);
   },
 
   render() {
-    var runned_at = this.props.process.runned_at
-    if(runned_at === null)
-      runned_at = "not runned yet"
-    else
-      runned_at = StringUtils.timeAgo(new Date(runned_at).getTime());
+
+    var pcs = this.props.process;
+
+    var tasks = ""
+    if(pcs.head != undefined && pcs.head[0].action !== null)
+      tasks = <TaskList action={pcs.head[0].action} handleFinish={this.finishClick} handleAssign={this.assignClick} />
 
     return (
     <div className="process-bubble__content padding-left-small">
@@ -35,28 +46,15 @@ let ProcessDetail = React.createClass({
       <div className="row margin-none">
 
         <div className="padding-none small-9 columns end">
-          <table>
-            <tr>
-              <th>name</th>
-              <td>{this.props.process.name}</td>
-            </tr>
-            <tr>
-              <th>pid</th>
-              <td>{this.props.process.pid}</td>
-            </tr>
-            <tr>
-              <th>created</th>
-              <td>{StringUtils.timeAgo(new Date(this.props.process.created_at).getTime())}</td>
-            </tr>
-            <tr>
-              <th>runned</th>
-              <td>{runned_at}</td>
-            </tr>
-          </table>
+
+          <ProcessTable process={pcs} />
+
+          {tasks}
+            
         </div>
 
         <div className="padding-none small-3 columns end">
-          <ActionList process={this.props.process} />
+          <ActionList process={pcs} />
         </div>
 
       </div>
