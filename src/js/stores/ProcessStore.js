@@ -20,10 +20,7 @@ function setProcesses(data) {
 }
 
 function initProcesses(data) {
-  _processes = _.map(data, function(item) {
-    item.showed = null
-    return item;
-  });
+  _processes = merge_data(_processes, data);
   ProcessStore.emitChange();
 }
 

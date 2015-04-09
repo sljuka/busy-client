@@ -34,8 +34,8 @@ let ProcessItem = React.createClass({
   		<div className={clss_name} onClick={this.showClick}>  
   			<div className="margin-none row">
           <div className="small-9 columns padding-top-medium">
-  				  {human_name}
-            <span className="process-bubble__content__process__pid"> (#{this.props.process.pid})</span>
+            <span className="process-bubble__content__process__pid">[ #{this.props.process.pid} ] </span>
+            {human_name}
           </div>
 
           <div className="small-1 columns padding-top-medium">

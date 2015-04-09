@@ -60,7 +60,7 @@ let TopBar = React.createClass({
       <nav className="top-bar" data-topbar role="navigation">
         <ul className="title-area">
           <li className="name">
-            <h1><a href="#">BF</a></h1>
+            <h1>BF</h1>
           </li>   
           <li className="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
         </ul>
