@@ -5,12 +5,22 @@ const CookieStore = require("./utils/CookieStore");
 const AppDispatcher = require('./dispatchers/AppDispatcher');
 const Constants = require('./constants/AppConstants');
 
+var _loaded = {
+  login: false,
+  blueprints: false,
+  processes: false
+}
+
+function loadFinish() {
+  if(_loaded.login && _loaded.blueprints && _loaded.processes)
+    React.render(<App />, document.getElementById('main'));
+}
+
 function syncLoginData(username) {
 
   $.ajax({
     url: "http://localhost:3000/api/v1/users/login_info",
     method: "GET",
-    async: false,
     data: {
       username: username
     },
@@ -22,6 +32,8 @@ function syncLoginData(username) {
         last_name: data.data.last_name,
         username: data.data.first_name
       }
+      _loaded.login = true;
+      loadFinish();
       AppDispatcher.handleViewAction({
         type: Constants.ActionTypes.BOOTSTRAPPING_LOGIN_DATA,
         data: user
@@ -39,7 +51,6 @@ function syncInitialBlueprintData() {
   $.ajax({
     url: "http://localhost:3000/api/v1/blueprints",
     method: "GET",
-    async: false,
     data: {
       token: "e894d555fe2645b9e0cca367adc3a6d0",
       latest: true
@@ -48,7 +59,9 @@ function syncInitialBlueprintData() {
       AppDispatcher.handleViewAction({
         type: Constants.ActionTypes.BOOTSTRAPPING_BLUEPRINT_DATA,
         data: data
-      }); 
+      });
+      _loaded.blueprints = true;
+      loadFinish();
     },
     error: function(data) {
       console.log("ERROR OCCURED")
@@ -68,7 +81,6 @@ function syncInitialProcessData() {
     $.ajax({
       url: "http://localhost:3000/api/v1/processes",
       method: "GET",
-      async: false,
       data: {
         token: "e894d555fe2645b9e0cca367adc3a6d0",
         names: JSON.stringify(process_names)
@@ -77,7 +89,9 @@ function syncInitialProcessData() {
         AppDispatcher.handleViewAction({
           type: Constants.ActionTypes.BOOTSTRAPPING_PROCESS_DATA,
           data: data
-        }); 
+        });
+        _loaded.processes = true;
+        loadFinish();
       },
       error: function(data) {
         console.log("ERROR OCCURED");
@@ -96,8 +110,6 @@ var bootstrapping = function() {
     syncLoginData(key);
     syncInitialBlueprintData();
     syncInitialProcessData();
-
-    React.render(<App />, document.getElementById('main'));
 
   } else {
 
