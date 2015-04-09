@@ -13,7 +13,7 @@ let Authentication = React.createClass({
   render() {
     return (
       <div className="row margin-top-large">
-        <form>
+        <form autoComplete="off">
           
           <div className="row">
             <div className="small-offset-4 small-4 columns end">
@@ -26,7 +26,7 @@ let Authentication = React.createClass({
           <div className="row">
             <div className="small-offset-4 small-4 columns end">
               <label>Password
-                <input type="password" placeholder="password" id="password" />
+                <input type="password" placeholder="password" id="password" autoComplete="off" />
               </label>
             </div>
           </div>

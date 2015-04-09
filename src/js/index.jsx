@@ -87,11 +87,9 @@ function syncInitialProcessData() {
 }
 
 var bootstrapping = function() {
-  var user = {};
-
   var key = CookieStore.getUserKey();
 
-  if(key !== null && key != undefined) {
+  if(key !== null && key !== undefined) {
 
     React.render(<Loading />, document.getElementById('main'));
 
@@ -102,7 +100,9 @@ var bootstrapping = function() {
     React.render(<App />, document.getElementById('main'));
 
   } else {
+
     React.render(<App />, document.getElementById('main'));
+ 
   }
   
 }()

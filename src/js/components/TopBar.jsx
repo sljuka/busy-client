@@ -41,7 +41,8 @@ let TopBar = React.createClass({
     var blueprints = this.state.blueprints;
 
     var select = "";
-    if(UserStore.getUserData().username != null && UserStore.getUserData().username != undefined)
+    var logout = "";
+    if(UserStore.getUserData().username != null && UserStore.getUserData().username != undefined) {
       select =  <li>
                   <select className="medium top-bar__blueprints-dropdown" onChange={this.selectChange}>
                     <option value={"none"} key={-1}>Choose process schema</option>
@@ -50,6 +51,10 @@ let TopBar = React.createClass({
                     )}
                   </select>
                 </li>
+      logout =  <li>
+                  <a href="#" className="top-bar__logout" onClick={this.logout}>Logout</a>
+                </li>
+    }
 
     return (
       <nav className="top-bar" data-topbar role="navigation">
@@ -65,8 +70,8 @@ let TopBar = React.createClass({
           <ul className="left">
             {select}        
           </ul>
-          <ul className="right margin-right-large margin-top-small">
-            <a href="#" className="top-bar__logout" onClick={this.logout}>Logout</a>
+          <ul className="right">
+            {logout}
           </ul>
         </section>
       </nav>
