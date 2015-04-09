@@ -1,11 +1,10 @@
 const React = require('react');
-const ProcessActionCreators = require('../actions/ProcessActionCreators')
 
 let ActionList = React.createClass({
 
   getDefaultProps() {
     return {
-      process: []
+      process: {}
     };
   },
 

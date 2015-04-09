@@ -1,7 +1,6 @@
 const React = require('react');
 const ProcessActionCreators = require('../actions/ProcessActionCreators')
 const ActionList = require('./ActionList.jsx');
-const StringUtils = require('../utils/StringUtils');
 const TaskList = require("./TaskList.jsx");
 const ProcessTable = require("./ProcessTable.jsx");
 

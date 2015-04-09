@@ -17,6 +17,7 @@ let AppDispatcher = assign(new Dispatcher(), {
       source: Constants.ActionSources.VIEW_ACTION,
       action: action
     };
+    console.info("[ DISPATCHER ] dispatching action " + action.type)
     this.dispatch(payload);
   }
 

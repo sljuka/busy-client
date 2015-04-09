@@ -1,6 +1,5 @@
 const React = require('react');
 const ProcessActionCreators = require('../actions/ProcessActionCreators')
-const ProcessItem = require('./ProcessItem.jsx');
 const StringUtils = require('../utils/StringUtils');
 
 let ProcessTable = React.createClass({

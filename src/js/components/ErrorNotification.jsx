@@ -1,5 +1,4 @@
 const React = require('react');
-const ProcessBubble = require('./ProcessBubble.jsx');
 const ErrorStore = require('../stores/ErrorStore');
 
 let ErrorNotification = React.createClass({

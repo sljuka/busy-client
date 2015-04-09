@@ -1,6 +1,4 @@
 const React = require('react');
-const ProcessActionCreators = require('../actions/ProcessActionCreators');
-const UserActionCreators = require("../actions/UserActionCreators");
 
 let Authentication = React.createClass({
 

@@ -1,13 +1,12 @@
 const React = require('react');
 const ProcessBubble = require('./ProcessBubble.jsx');
 const ProcessStore = require('../stores/ProcessStore')
-const BlueprintStore = require('../stores/BlueprintStore')
 const ProcessActionCreators = require('../actions/ProcessActionCreators')
 
 let ProcessPanel = React.createClass({
   getInitialState() {
     return {
-      blueprints: []
+      blueprints: ProcessStore.getProcesses()
     };
   },
 

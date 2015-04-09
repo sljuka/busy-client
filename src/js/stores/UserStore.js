@@ -18,7 +18,7 @@ function login(data) {
   if(data.username !== null)
     CookieStore.setUserKey(data.username);
 
-  UserStore.emitChange()
+  location.reload();
 }
 
 function logout() {
@@ -28,7 +28,6 @@ function logout() {
 }
 
 function autoLogin(data) {
-  console.log("usao je i ovde --")
   if(data.username !== null && data.username !== undefined) {
     _user.apiKey = data.api_key;
     _user.username = data.username,
@@ -37,8 +36,6 @@ function autoLogin(data) {
   } else {
     _user = {}
   }
-
-  console.log(_user)
 
   UserStore.emitChange()
 }
@@ -65,6 +62,8 @@ let UserStore = assign({}, BaseStore, {
       case Constants.ActionTypes.LOGOUT:
         logout();
         break;
+      case Constants.ActionTypes.BOOTSTRAPPING_LOGIN_DATA:
+        autoLogin(action.data);
       // add more cases for other actionTypes...
     }
   })

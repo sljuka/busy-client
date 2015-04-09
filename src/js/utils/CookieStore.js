@@ -13,6 +13,8 @@ module.exports = {
 
   getBlueprintNames: function(string) {
     var res = jquery.cookie("_processes");
+    if(res === undefined)
+      return [];
     if(typeof(res) == "string")
       res = JSON.parse(res).names;
     else

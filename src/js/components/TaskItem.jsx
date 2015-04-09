@@ -1,5 +1,4 @@
 const React = require('react');
-const ProcessActionCreators = require('../actions/ProcessActionCreators');
 const StringUtils = require("../utils/StringUtils");
 
 let TaskItem = React.createClass({

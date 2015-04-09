@@ -1,7 +1,6 @@
 const React = require('react');
 const BlueprintStore = require('../stores/BlueprintStore');
 const UserStore = require('../stores/UserStore');
-const BlueprintActionCreators = require('../actions/BlueprintActionCreators');
 const ProcessActionCreators = require('../actions/ProcessActionCreators');
 const StringUtils = require('../utils/StringUtils');
 const UserActionCreators = require("../actions/UserActionCreators");
@@ -9,13 +8,7 @@ const UserActionCreators = require("../actions/UserActionCreators");
 let TopBar = React.createClass({
   getInitialState() {
     return {
-      blueprints: [
-        {
-          name: "no processes",
-          id: -1,
-          processes: []
-        }
-      ]
+      blueprints: BlueprintStore.getBlueprints()
     };
   },
 
@@ -48,7 +41,7 @@ let TopBar = React.createClass({
     var blueprints = this.state.blueprints;
 
     var select = "";
-    if(UserStore.getUserData().user != null)
+    if(UserStore.getUserData().username != null && UserStore.getUserData().username != undefined)
       select =  <li>
                   <select className="medium top-bar__blueprints-dropdown" onChange={this.selectChange}>
                     <option value={"none"} key={-1}>Choose process schema</option>

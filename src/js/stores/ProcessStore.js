@@ -19,6 +19,14 @@ function setProcesses(data) {
 
 }
 
+function initProcesses(data) {
+  _processes = _.map(data, function(item) {
+    item.showed = null
+    return item;
+  });
+  ProcessStore.emitChange();
+}
+
 function goToIndex(name) {
   var pcs = _.find(_processes, { name: name });
   pcs.showed = null;
@@ -118,15 +126,13 @@ let ProcessStore = assign({}, BaseStore, {
       case Constants.ActionTypes.OPEN_BLUEPRINT:
         openBlueprint(action.blueprint_name)
         break;
-      case Constants.ActionTypes.INITIAL_DATA:
-        setProcesses(action.processes);
+      case Constants.ActionTypes.BOOTSTRAPPING_PROCESS_DATA:
+        initProcesses(action.data)
         break;
     }
   })
 
 });
-
-
 
 function merge_data(current, fresh) {
 

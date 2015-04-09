@@ -5,14 +5,12 @@ const Error = require("./ErrorNotification.jsx");
 const Authentication = require("./Authentication.jsx");
 const UserStore = require("../stores/UserStore");
 const UserActionCreators = require("../actions/UserActionCreators");
-const AppActionCreators = require("../actions/AppActionCreators");
-const CookieStore = require("../utils/CookieStore");
 
 let App = React.createClass({
 
   getInitialState() {
     return {
-      user: {}
+      user: UserStore.getUserData()
     }
   },
 
@@ -24,15 +22,10 @@ let App = React.createClass({
 
   login(un, pass) {
     UserActionCreators.login(un, pass);
-    AppActionCreators.getInitialData();
   },
 
   componentDidMount() {
     UserStore.addChangeListener(this._onChange);
-    if(CookieStore.getUserKey() !== undefined) {
-      UserActionCreators.getUserData();
-      AppActionCreators.getInitialData();
-    }
   },
 
 
