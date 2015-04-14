@@ -10,6 +10,7 @@ const UserStore = require("./UserStore");
 // data storage
 
 let _processes = [];
+let _inputChoose = null;
 
 // private functions
 function setProcesses(data) {
@@ -63,6 +64,10 @@ function closeBlueprint(name) {
   ProcessStore.emitChange();
 }
 
+function setInputChoose(process) {
+  _inputChoose = process;
+}
+
 // Facebook style store creation.
 let ProcessStore = assign({}, BaseStore, {
 
@@ -94,10 +99,14 @@ let ProcessStore = assign({}, BaseStore, {
     }
 
     _processes.forEach(function(n) {
-      n.processes.sort(compare)
+      n.processes.sort(compare);
     });
 
-    return _processes
+    return _processes;
+  },
+
+  getInputPending() {
+    return _inputChoose;
   },
 
   // register store with dispatcher, allowing actions to flow through
@@ -125,6 +134,9 @@ let ProcessStore = assign({}, BaseStore, {
         break;
       case Constants.ActionTypes.BOOTSTRAPPING_PROCESS_DATA:
         initProcesses(action.data)
+        break;
+      case Constants.ActionTypes.CHOOSE_INPUT_SUCCESS:
+        setInputChoose(action.data)
         break;
     }
   })

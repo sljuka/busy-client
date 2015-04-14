@@ -6,7 +6,8 @@ const ProcessActionCreators = require('../actions/ProcessActionCreators')
 let ProcessPanel = React.createClass({
   getInitialState() {
     return {
-      blueprints: ProcessStore.getProcesses()
+      blueprints: ProcessStore.getProcesses(),
+      chosen: ProcessStore.getInputPending()
     };
   },
 
@@ -16,7 +17,8 @@ let ProcessPanel = React.createClass({
 
   _onChange() {
     this.setState({
-      blueprints: ProcessStore.getProcesses()
+      blueprints: ProcessStore.getProcesses(),
+      chosen: ProcessStore.getInputPending()
     });
   },
 
@@ -26,6 +28,11 @@ let ProcessPanel = React.createClass({
 
   componentWillUnmount() {
     ProcessStore.removeChangeListener(this._onChange);
+  },
+
+  reveal(e) {
+    e.preventDefault();
+    $('#myModal').foundation('reveal', 'open');
   },
 
   render() {

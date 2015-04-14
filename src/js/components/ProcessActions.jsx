@@ -14,7 +14,14 @@ let ProcessActions = React.createClass({
     ProcessActionCreators.runProcess(this.props.process.id)
   },
 
-  inputForm(e) {
+  inputClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.props.handleInput();
+  },
+
+  reveal(e) {
+    e.preventDefault();
     e.stopPropagation();
   },
 
@@ -26,7 +33,7 @@ let ProcessActions = React.createClass({
     if(pcs.status == "not_started")
       button = <a title="Run process" className="icon-button--dgrey margin-top-small margin-left-medium" onClick={this.runClick}><i className="step fi-play"></i></a>;
     else if(pcs.status == "input")
-      button = <a title="Submit input" className="icon-button--dgrey margin-top-small margin-left-medium" onClick={this.runClick}><i className="step fi-info"></i></a>;
+      button = <a title="Submit input" className="icon-button--dgrey margin-top-small margin-left-medium" onClick={this.inputClick}><i className="step fi-info"></i></a>;
 
     return(
       <span>{button}</span>

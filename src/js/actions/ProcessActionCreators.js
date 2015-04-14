@@ -213,6 +213,10 @@ module.exports = {
       self.showProcess(process.name, process.id);
     }
 
+    function refreshProcesses() {
+      self.getProcesses();
+    }
+
     $.ajax({
       url: "http://localhost:3000/api/v1/tasks/" + task_id + "/finish",
       method: "POST",
@@ -225,6 +229,7 @@ module.exports = {
           process: data
         });
         refreshProcess();
+        refreshProcesses();
       },
       error: function(data) {
         var message = "Unexpected error occured"
@@ -236,6 +241,44 @@ module.exports = {
         });
       }
     });
+  },
+
+  chooseInput: function(process, value) {
+    AppDispatcher.handleViewAction({
+      type: Constants.ActionTypes.CHOOSE_INPUT,
+    });
+
+    var self = this;
+    function refreshProcesses() {
+      self.getProcesses();
+    }
+
+    $.ajax({
+      url: "http://localhost:3000/api/v1/processes/" + process.id + "/input",
+      method: "POST",
+      data: {
+        token: "e894d555fe2645b9e0cca367adc3a6d0",
+        input: value
+      },
+
+      success: function(data) {
+        AppDispatcher.handleViewAction({
+          type: Constants.ActionTypes.CHOOSE_INPUT_SUCCESS,
+          process: data
+        });
+        refreshProcesses();
+      },
+
+      error: function(data) {
+        var message = "Unexpected error occured"
+        if(data.responseText !== undefined)
+          message = JSON.parse(data.responseText).message
+        AppDispatcher.handleViewAction({
+          type: Constants.ActionTypes.ERROR,
+          message: message
+        });
+      }
+    })
   }
 
 
