@@ -58,6 +58,11 @@ function openBlueprint(name) {
   CookieStore.setBlueprintNames(_processes);
 }
 
+function mergeProcess(process) {
+  _processes = refreshProcess(_processes, process);
+  ProcessStore.emitChange();
+}
+
 function closeBlueprint(name) {
   _processes = _.reject(_processes, { name: name });
   CookieStore.setBlueprintNames(_processes);
@@ -72,7 +77,10 @@ function setInputChoose(process) {
 let ProcessStore = assign({}, BaseStore, {
 
   // public methods used by Controller-View to operate on data
-  getProcesses() {
+  getProcesses(sort) {
+
+    if(sort === undefined)
+      sort = false
 
     var compare = function(a,b) {
       if (a.finished_at === null && b.finished_at !== null)
@@ -98,9 +106,11 @@ let ProcessStore = assign({}, BaseStore, {
       }
     }
 
-    _processes.forEach(function(n) {
-      n.processes.sort(compare);
-    });
+    if(sort) {
+      _processes.forEach(function(n) {
+        n.processes.sort(compare);
+      });
+    }
 
     return _processes;
   },
@@ -138,6 +148,9 @@ let ProcessStore = assign({}, BaseStore, {
       case Constants.ActionTypes.CHOOSE_INPUT_SUCCESS:
         setInputChoose(action.data)
         break;
+      case Constants.ActionTypes.RUN_PROCESS_SUCCESS:
+        mergeProcess(action.data)
+        break;
     }
   })
 
@@ -172,6 +185,21 @@ function merge_data(current, fresh) {
     return item;
   });
   return res;
+}
+
+function refreshProcess(current, process) {
+  console.log(current)
+  console.log(process)
+  var res = [];
+  res = _.map(current, function(item) {
+    if(item.name === process.name) {
+      var idx = _.findIndex(item.processes, { 'id': process.id})
+      item.processes[idx] = process
+
+    }    
+    return item;
+  });
+  return res; 
 }
 
 module.exports = ProcessStore;

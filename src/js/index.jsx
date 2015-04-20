@@ -18,11 +18,13 @@ function loadFinish() {
 
 function syncLoginData(username) {
 
+  var usernameFiltered = username.replace(/\W/g, '')
+
   $.ajax({
     url: "http://localhost:3000/api/v1/users/login_info",
     method: "GET",
     data: {
-      username: username
+      username: usernameFiltered
     },
     success: function(data) {
       var user = {

@@ -6,7 +6,7 @@ const ProcessActionCreators = require('../actions/ProcessActionCreators')
 let ProcessPanel = React.createClass({
   getInitialState() {
     return {
-      blueprints: ProcessStore.getProcesses(),
+      blueprints: ProcessStore.getProcesses(true),
       chosen: ProcessStore.getInputPending()
     };
   },

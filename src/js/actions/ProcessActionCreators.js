@@ -99,11 +99,6 @@ module.exports = {
       type: Constants.ActionTypes.RUN_PROCESS,
     });
 
-    var self = this;
-    function refreshProcesses() {
-      self.getProcesses();
-    }
-
     $.ajax({
       url: "http://localhost:3000/api/v1/processes/" + id + "/run",
       method: "POST",
@@ -114,9 +109,8 @@ module.exports = {
       success: function(data) {
         AppDispatcher.handleViewAction({
           type: Constants.ActionTypes.RUN_PROCESS_SUCCESS,
-          processes: data
+          data: data.data.process
         });
-        refreshProcesses();
       },
 
       error: function(data) {
